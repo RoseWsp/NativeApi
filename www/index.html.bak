@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Native Api</title>
+		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+    <body>
+		<!--main page-->
+         <div data-role="page" id="main">  
+		  <div data-role="header">  
+			<h1>Cordova Sample</h1>   
+		  </div>  
+		  <div data-role="content">  
+			<ul data-role="listview">  
+			  <li><a href="#accelerometer" data-transition="slide">Accelerometer</a></li>  
+			  <li><a href="#camera" data-transition="slide">Camera</a></li>  
+			  <li><a href="#compass" data-transition="slide">Compass</a></li>  
+			  <li><a href="#connection" data-transition="slide">Connection</a></li>  
+			  <li><a href="#device" data-transition="slide">Device</a></li>  
+			  <li><a href="#geolocation" data-transition="slide">Geolocation</a></li>  
+			  <li><a href="#notification" data-transition="slide">Notification</a></li>  
+			  <li><a href="#contacts" data-transition="slide">Contacts</a></li>  
+			  <li><a href="#file" data-transition="slide">File</a></li>  
+			  <li><a href="#inAppBrowser" data-transition="slide">InAppBrowser</a></li>  
+			  <li><a href="#storage" data-transition="slide">Storage</a></li>  
+			  <li><a href="#database" data-transition="slide">Database</a></li>  
+			</ul>  
+		  </div>  
+		</div>  
+		<!--end main page-->
+
+		<!-- Accelerometer  加速计 传感器
+			$ cordova plugin add org.apache.cordova.device-motion  
+		--> 
+		<!--accelerometer page-->
+		<div data-role="page" id="accelerometer">  
+		  <div data-role="header">  
+			<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+			<h1>Accelerometer</h1>   
+		  </div>  
+		  <div data-role="content">  
+			  <a href="#" data-role="button" id="startWatch">Start Watching</a><br>  
+			  <a href="#" data-role="button" id="stopWatch">Stop Watching</a><br>  
+			  <div id="accvals">Waiting for accelerometer...</div>  
+			  <br><br>
+			  <a href="#" data-role="button" id="startWatchOrientation">Start Watch Orientation</a><br>  
+			  <a href="#" data-role="button" id="stopWatchOrientation">Stop Watch Orientation</a><br>  
+			  <div id="orivals">Waiting for orientation...</div>  
+		   </div>  
+		 </div>
+		<!--end accelerometer page -->
+		<!-- Camera   
+			$ cordova plugin add org.apache.cordova.camera  
+		--> 
+		<!--camera page-->
+		<div data-role="page" id="camera">
+		  <div data-role="header">  
+			<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+			<h1>Camera</h1>
+		  </div>  
+		  <div data-role="content">  
+			  <a href="#" data-role="button" id="capturePhoto">Capture Photo</a><br>  
+			  <img style="display:none;" id="smallImage" src="" /><p id="smTitle"></p>  
+			  <a href="#" data-role="button" id="browsePhoto">Browse Photo Album</a><br>  
+			  <img style="display:none;" id="largeImage" src="" /><p id="lgTitle"></p>  
+		 </div>
+		 </div>
+		 <!--end camera page-->
+		 <!-- Compass   
+				  $ cordova plugin add org.apache.cordova.device-orientation  
+		 -->  
+		 <div data-role="page" id="compass">
+			<div data-role="header">
+				<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-1">Back</a>
+				<h1>Compass</h1>
+			</div>
+			<div data-role="content">
+				 <a href="#" data-role="button" id="startWatchCompass">Start Watch Compass</a><br>  
+				 <a href="#" data-role="button" id="stopWatchCompass">Stop Watch Compass</a><br>  
+				 <div id="heading">Waiting for heading...</div>  
+			</div>
+		 </div>
+		<!-- Connection   
+		   cordova plugin add org.apache.cordova.network-information  
+		-->  
+		<div data-role="page" id="connection">  
+		  <div data-role="header">  
+			<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+			<h1>Connection</h1>   
+		  </div>  
+		  <div data-role="content">  
+			  <a href="#" data-role="button" id="checkConnection">Check Connection</a><br>  
+			  <div id="connectiontype">Waiting for Connection type...</div>  
+		  </div>  
+		 </div>
+		 <!-- Device   
+			$ cordova plugin add org.apache.cordova.device  
+		-->  
+		<div data-role="page" id="device">  
+			  <div data-role="header">  
+				<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+				<h1>Device</h1>   
+			  </div>  
+			  <div data-role="content">  
+				  <a href="#" data-role="button" id="getDeviceProperties">Get Device Properties</a><br>  
+				  <div id="deviceProperties">Loading device properties...</div>  
+			  </div>  
+		 </div>
+		 <!-- Geolocation   
+			$ cordova plugin add org.apache.cordova.geolocation  
+		 -->  
+		<div data-role="page" id="geolocation">  
+		  <div data-role="header">  
+			<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+			<h1>Geolocation</h1>   
+		  </div>  
+		  <div data-role="content">  
+			<a href="#" data-role="button" id="startGeolocationg">Start Geolocationg</a><br>  
+			<a href="#" data-role="button" id="stopGeolocationg">Stop Geolocation</a><br>  
+			<br><br>  
+			<a href="#" data-role="button" id="getCurrentPosition">Get Current Position </a><br>  
+			<div id="geovals">Waiting for geolocation...</div>  
+		  </div>  
+		 </div>
+		 <!-- Notification   
+			  $ cordova plugin add org.apache.cordova.dialogs  
+			  $ cordova plugin add org.apache.cordova.vibration  
+		-->  
+		<div data-role="page" id="notification">  
+		  <div data-role="header">  
+			<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+			<h1>Notification</h1>   
+		  </div>  
+		  <div data-role="content">  
+			<a href="#" data-role="button" id="showAlert">Show Alert popup</a><br>  
+			<a href="#" data-role="button" id="showConfirm">Show Confirm popup</a><br>  
+			<a href="#" data-role="button" id="showPrompt">Show Prompt popup</a><br>  
+			<br><br>  
+			<a href="#" data-role="button" id="playBeep">Play Beep sound</a><br>  
+			<a href="#" data-role="button" id="vibrate">Vibrate the device</a><br>  
+		  </div>  
+		 </div>
+		<!-- Contacts   
+        $ cordova plugin add org.apache.cordova.contacts  
+		-->  
+		<div data-role="page" id="contacts">  
+		  <div data-role="header">  
+			<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+			<h1>Contacts</h1>   
+		  </div>  
+		  <div data-role="content">  
+			<label for="fname">First Name:</label>  
+			<input type="text" name="fname" id="fname" value="REN"><br>  
+			<label for="lname">Last Name:</label>  
+			<input type="text" name="lname" id="lname" value="SANNING"><br>  
+			<label for="email">Email:</label>  
+			<input type="text" name="email" id="email" value="rensanning@gmail.com"><br>  
+			<label for="tel">TEL:</label>  
+			<input type="text" name="tel" id="tel" value="18812345678"><br>  
+			<br>  
+			<a href="#" data-role="button" id="saveContacts">Save</a><br>  
+		  </div>  
+		 </div>
+		 <!-- File   
+			$ cordova plugin add org.apache.cordova.file  
+			$ cordova plugin add org.apache.cordova.file-transfer  
+		-->  
+		<div data-role="page" id="file">  
+		  <div data-role="header">  
+			<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+			<h1>File</h1>   
+		  </div>  
+		  <div data-role="content">  
+			<input type="text" id="userInput" name="userInput" value="I'm rensanning."><br>  
+			<a href="#" data-role="button" id="writeToFile">Write To File</a><br>  
+		  
+			<a href="#" data-role="button" id="readFile">Read File</a><br>  
+			<p id="data1"></p><p id="data2"></p><br>  
+		  
+			<a href="#" data-role="button" id="deleteFile">Delete File</a><br>  
+		  </div>
+		 </div>
+		 <!-- InAppBrowser  
+			$ cordova plugin add org.apache.cordova.inappbrowser  
+		--> 
+		<div data-role="page" id="inAppBrowser">  
+		  <div data-role="header">  
+			<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+			<h1>InAppBrowser</h1>   
+		  </div>  
+		  <div data-role="content">  
+			<label for="url">URL:</label>  
+			<input type="text" id="url" name="url" value="http://www.baidu.com"><br>  
+			<a href="#" data-role="button" id="openURL">Open URL</a><br>  
+		  </div>  
+		 </div>
+		 <!-- Storage -->  
+		<div data-role="page" id="storage">  
+		  <div data-role="header">  
+			<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+			<h1>Storage</h1>   
+		  </div>  
+		  <div data-role="content">  
+			<label for="key">Key:</label>  
+			<input type="text" id="key" name="key" value="item_name"><br>  
+			<label for="val">Value:</label>  
+			<input type="text" id="val" name="val" value="item_value"><br>  
+			<a href="#" data-role="button" id="saveItem">Save Item</a><br>  
+			<a href="#" data-role="button" id="getItem">Get Item</a><br>  
+			<a href="#" data-role="button" id="deleteItem">Delete Item</a><br>  
+		  </div>
+		 </div>
+		 <!-- Database -->  
+		<div data-role="page" id="database">  
+		  <div data-role="header">  
+			<a data-role="button" data-rel="back" data-direction="reverse" data-icon="arrow-l">Back</a>  
+			<h1>Database</h1>   
+		  </div>  
+		  <div data-role="content">  
+			<label for="id">ID:</label>  
+			<input type="text" id="id" name="id" value="12345"><br>  
+			<label for="data">Data:</label>  
+			<input type="text" id="data" name="data" value="Data Value"><br>  
+			<a href="#" data-role="button" id="saveToDatabase">Save To Database</a><br>  
+			<a href="#" data-role="button" id="getFromDatabase">Get From Database</a><br>  
+		  </div>
+		 </div>
+        
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
